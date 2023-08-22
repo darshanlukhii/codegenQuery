@@ -1,0 +1,33 @@
+overwrite: true
+schema:
+  - https://countries.trevorblades.com/graphql:
+      headers:
+documents: 'src/**/*.graphql'
+generates:
+  schema.graphql:
+    plugins:
+      - schema-ast
+    config:
+      commentDescriptions: true
+  introspection.json:
+    plugins:
+      - introspection
+    config:
+      minify: true
+  src/generated/index.ts:
+    plugins:
+      - 'typescript'
+      - 'typescript-operations'
+      - 'typescript-react-query'
+    config:
+      skipTypename: true
+      exposeQueryKeys: true
+      exposeFetcher: true
+      # legacyMode: false # TO-DO: Uncomment this line / Changing this to False will use latest react-query default is true https://github.com/dotansimha/graphql-code-generator/blob/master/packages/plugins/typescript/react-query/src/config.ts
+      fetcher:
+        # func: '../services/fetcher#fetcherWithAuth'
+        func: '../helper/fetcher#fetcherWithAuth'
+        isReactHook: true
+      errorType: '{ code: string; extra: any; locations: {column: number; line: number;}[]; message: string; metadata: any; path: string[]; status_code: number; } | string | number'
+    hooks:
+      afterOneFileWrite: ['prettier --write']

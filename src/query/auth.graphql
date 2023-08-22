@@ -1,0 +1,27 @@
+query ContinentQuery {
+    continents {
+      code
+      name
+    }
+  }
+
+query Query {
+  countries {
+    name
+    capital
+    code
+    awsRegion
+    currency
+    emoji
+    emojiU
+    phone
+    languages {
+      name
+    }
+    states {
+      name
+    }
+    
+  }
+  
+}
